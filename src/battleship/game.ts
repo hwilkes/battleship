@@ -1,4 +1,5 @@
 import {Player} from "./player";
+import {ShipType} from "./ships";
 
 export default class Game {
 
@@ -10,5 +11,10 @@ export default class Game {
         this.playerTwo = playerTwo;
     }
 
-
+    setup(): void {
+        for (const shipType in ShipType) {
+            this.playerOne.placeShip(shipType);
+            this.playerOne.placeShip(shipType);
+        }
+    }
 }

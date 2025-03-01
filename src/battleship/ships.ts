@@ -36,10 +36,3 @@ export const Destroyer: Ship = {
     symbol: 'D',
     type: ShipType.DD,
 }
-
-export enum Direction {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-}
