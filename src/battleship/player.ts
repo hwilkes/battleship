@@ -1,5 +1,5 @@
 import {Ships} from "./ships";
-import {Coordinate} from "./grid";
+import {Coordinate, Grid} from "./grid";
 
 export type MoveCommand = {
     ship: Ships;
@@ -9,5 +9,7 @@ export type MoveCommand = {
 export interface Player {
     placeShip(ship: Ships): void;
     getNextMove(previousHit: boolean): Coordinate;
+
+    playerGrid: Grid;
 }
 

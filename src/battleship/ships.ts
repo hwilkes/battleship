@@ -1,31 +1,40 @@
-export type Ships = Carrier | Battleship | Cruiser | Submarine | Destroyer;
 
-interface Ship {
+type Ship = {
     length: number;
     symbol: string;
+    type: ShipType;
 }
 
-interface Carrier extends Ship {
+export enum ShipType {
+    CA, BB, CR, SS, DD, EMPTY
+}
+
+export const Carrier: Ship = {
     length: 5,
-    symbol: 'A'
+    symbol: 'A',
+    type: ShipType.CA,
 }
 
-interface Battleship extends Ship {
+export const Battleship: Ship = {
     length: 4,
-    symbol: 'B'
+    symbol: 'B',
+    type: ShipType.BB,
 }
 
-interface Cruiser extends Ship {
+export const Cruiser: Ship = {
     length: 3,
-    symbol: 'C'
+    symbol: 'C',
+    type: ShipType.CR,
 }
-interface Submarine extends Ship {
+export const Submarine: Ship = {
     length: 3,
-    symbol: 'S'
+    symbol: 'S',
+    type: ShipType.SS,
 }
-interface Destroyer extends Ship {
+export const Destroyer: Ship = {
     length: 2,
-    symbol: 'D'
+    symbol: 'D',
+    type: ShipType.DD,
 }
 
 export enum Direction {
