@@ -1,7 +1,13 @@
 import {Carrier, Battleship, Cruiser, Submarine, Destroyer, ShipType} from "./ships";
 
+export const gridSize = 10;
+
 export class Grid {
-    cells: Cell[][];
+    readonly cells: Cell[][];
+
+    constructor() {
+        this.cells = new Array(gridSize).fill(new Array(gridSize).fill(new Cell()))
+    }
 }
 
 export class Cell {
