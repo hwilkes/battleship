@@ -1,10 +1,14 @@
-import {Player} from "./player";
+import { Grid } from "./grid";
+import {MoveCommand, Player} from "./player";
 import {ShipType} from "./ships";
 
 export default class Game {
 
     playerOne: Player;
     playerTwo: Player;
+
+    playerOneGrid: Grid;
+    playerTwoGrid: Grid;
 
     constructor(playerOne: Player, playerTwo: Player) {
         this.playerOne = playerOne;
@@ -13,7 +17,7 @@ export default class Game {
 
     setup(): void {
         for (const shipType in ShipType) {
-            this.playerOne.placeShip(shipType);
+            let playerOneCommand: MoveCommand = this.playerOne.placeShip(shipType);
             this.playerOne.placeShip(shipType);
         }
     }
