@@ -7,6 +7,7 @@ export class Grid {
 
     readonly occupiedCells: Set<Coordinate>;
 
+
     constructor() {
         this.cells = new Array(gridSize).fill(new Array(gridSize).fill(new Cell()))
         this.occupiedCells = new Set();
@@ -17,8 +18,13 @@ export class Grid {
         this.occupiedCells.add(coord)
     }
 
-    explodeCell(coord: Coordinate) {
-        this.cells[coord.x][coord.y].exploded = true;
+    explodeCell(target: Coordinate): boolean {
+        if(this.occupiedCells.has(target)) {
+            this.cells[target.x][target.y].exploded = true;
+            return true;
+        }
+
+        return false;
     }
 }
 

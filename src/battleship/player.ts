@@ -6,6 +6,21 @@ export abstract class Player {
     abstract getNextMove(previousHit: boolean): Coordinate;
 
     playerGrid: Grid;
+    explodedParts: number;
+
+    isDead(): boolean {
+        return this.explodedParts >= 17;
+    }
+
+    blowupCell(target: Coordinate): boolean {
+        const result = this.playerGrid.explodeCell(target);
+
+        if(result) {
+            this.explodedParts++;
+        }
+
+        return result
+    }
 
     isValidPlacement(placement: Coordinate, direction: Direction, length: number): boolean {
         if(this.playerGrid.occupiedCells.has(placement)) {
@@ -64,6 +79,7 @@ export abstract class Player {
     }
 
     chooseTarget(previousHit: boolean): Coordinate {
+
         let targetAcquired = false;
         let target: Coordinate;
         
@@ -72,17 +88,14 @@ export abstract class Player {
             if(target.x < 0 
                 || target.x > gridSize 
                 || target.y < 0 
-                || target.y > gridSize 
-                || this.playerGrid.cells[target.x][target.y].exploded) {
+                || target.y > gridSize) {
                 console.log("Bad getNextMove returned, getting another");
             }
             else {
                 targetAcquired = true;
             }
         }
-        
-        this.playerGrid.explodeCell(target);
-        
+
         return target;
     }
 

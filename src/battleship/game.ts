@@ -1,6 +1,6 @@
 import { Grid } from "./grid";
 import {Player} from "./player";
-import {Ships, Ship} from "./ships";
+import {Ships} from "./ships";
 
 export default class Game {
 
@@ -21,4 +21,6 @@ export default class Game {
             this.playerTwo.putShip(ship)
         }
     }
+
+
 }
