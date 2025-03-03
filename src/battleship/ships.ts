@@ -39,6 +39,10 @@ export const Destroyer: Ship = {
     type: ShipType.DD,
 }
 
+export const Ships = [
+    Carrier, Battleship, Cruiser, Submarine, Destroyer
+]
+
 export function getSymbol(type: ShipType): string {
     switch (type) {
         case ShipType.CA:
