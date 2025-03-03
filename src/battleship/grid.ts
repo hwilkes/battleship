@@ -1,40 +1,34 @@
-import {Carrier, Battleship, Cruiser, Submarine, Destroyer, ShipType} from "./ships";
+import {getSymbol, Ship, ShipType} from "./ships";
 
 export const gridSize = 10;
 
 export class Grid {
     readonly cells: Cell[][];
 
+    readonly occupiedCells: Set<Coordinate>;
+
     constructor() {
         this.cells = new Array(gridSize).fill(new Array(gridSize).fill(new Cell()))
+        this.occupiedCells = new Set();
+    }
+
+    setCellContents(coord: Coordinate, ship:Ship) {
+        this.cells[coord.x][coord.y].contents = ship.symbol;
+        this.occupiedCells.add(coord)
+    }
+
+    explodeCell(coord: Coordinate) {
+        this.cells[coord.x][coord.y].exploded = true;
     }
 }
 
 export class Cell {
     exploded: boolean;
-    contents: ShipType;
+    contents: string;
 
     constructor() {
         this.exploded = false;
-        this.contents = ShipType.EMPTY;
-    }
-
-    getSymbol(): string {
-        switch (this.contents) {
-            case ShipType.CA:
-                return Carrier.symbol;
-            case ShipType.BB:
-                return Battleship.symbol;
-            case ShipType.CR:
-                return Cruiser.symbol;
-            case ShipType.SS:
-                return Submarine.symbol;
-            case ShipType.DD:
-                return Destroyer.symbol;
-            case ShipType.EMPTY:
-                return '~'
-
-        }
+        this.contents = getSymbol(ShipType.EMPTY);
     }
 }
 
