@@ -1,8 +1,8 @@
-import {Ship, ShipType} from "./ships";
-import {Coordinate, Grid, gridSize} from "./grid";
+import {Ship, ShipType} from "../ships";
+import {Coordinate, Grid, gridSize} from "../grid";
 
 export abstract class Player {
-    protected abstract getNextPlacement(ship: ShipType): {start: Coordinate, direction: Direction};
+    protected abstract getNextPlacement(ship: Ship): {start: Coordinate, direction: Direction};
     protected abstract getNextMove(previousHit: boolean): Coordinate;
 
     playerGrid: Grid;
@@ -25,6 +25,29 @@ export abstract class Player {
     public isValidPlacement(placement: Coordinate, direction: Direction, length: number): boolean {
         if(this.playerGrid.occupiedCells.has(placement)) {
             return false;
+        }
+
+        switch (direction) {
+            case Direction.UP:
+                if((placement.y - length) < 0) {
+                    return false;
+                }
+                break;
+            case Direction.DOWN:
+                if((placement.y + length) >= gridSize) {
+                    return false;
+                }
+                break;
+            case Direction.LEFT:
+                if((placement.x - length) < gridSize) {
+                    return false;
+                }
+                break;
+            case Direction.RIGHT:
+                if((placement.x + length) >= gridSize) {
+                    return false;
+                }
+                break;
         }
 
         let result = true;
@@ -55,7 +78,7 @@ export abstract class Player {
         let start: Coordinate, direction: Direction;
         
         while(!validPlacementFound) {
-            const {start, direction} = this.getNextPlacement(ship.type);
+            const {start, direction} = this.getNextPlacement(ship);
 
             validPlacementFound = this.isValidPlacement(start, direction, ship.length)
         }

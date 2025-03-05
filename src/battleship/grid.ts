@@ -7,6 +7,8 @@ export class Grid {
 
     readonly occupiedCells: Set<Coordinate>;
 
+    readonly possibleCells: Set<Coordinate>;
+
 
     constructor() {
         this.cells = new Array(gridSize).fill(new Array(gridSize).fill(new Cell()))

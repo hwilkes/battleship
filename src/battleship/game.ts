@@ -1,5 +1,5 @@
 import {Coordinate, Grid} from "./grid";
-import {Player} from "./player";
+import {Player} from "./players/player";
 import {Ships} from "./ships";
 
 export default class Game {
