@@ -2,17 +2,17 @@ import {Ship, ShipType} from "./ships";
 import {Coordinate, Grid, gridSize} from "./grid";
 
 export abstract class Player {
-    abstract getNextPlacement(ship: ShipType): {start: Coordinate, direction: Direction};
-    abstract getNextMove(previousHit: boolean): Coordinate;
+    protected abstract getNextPlacement(ship: ShipType): {start: Coordinate, direction: Direction};
+    protected abstract getNextMove(previousHit: boolean): Coordinate;
 
     playerGrid: Grid;
     explodedParts: number;
 
-    isDead(): boolean {
+    public isDead(): boolean {
         return this.explodedParts >= 17;
     }
 
-    blowupCell(target: Coordinate): boolean {
+    public blowupCell(target: Coordinate): boolean {
         const result = this.playerGrid.explodeCell(target);
 
         if(result) {
@@ -22,7 +22,7 @@ export abstract class Player {
         return result
     }
 
-    isValidPlacement(placement: Coordinate, direction: Direction, length: number): boolean {
+    public isValidPlacement(placement: Coordinate, direction: Direction, length: number): boolean {
         if(this.playerGrid.occupiedCells.has(placement)) {
             return false;
         }
@@ -49,7 +49,7 @@ export abstract class Player {
         return result;
     }
 
-    putShip(ship: Ship): void {
+    public putShip(ship: Ship): void {
         
         let validPlacementFound = false;
         let start: Coordinate, direction: Direction;
@@ -78,7 +78,7 @@ export abstract class Player {
         }
     }
 
-    chooseTarget(previousHit: boolean): Coordinate {
+    public chooseTarget(previousHit: boolean): Coordinate {
 
         let targetAcquired = false;
         let target: Coordinate;
