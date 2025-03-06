@@ -8,6 +8,12 @@ export abstract class Player {
     playerGrid: Grid;
     explodedParts: number;
 
+    protected constructor() {
+        this.explodedParts = 0;
+        this.playerGrid = new Grid();
+    }
+
+
     public isDead(): boolean {
         return this.explodedParts >= 17;
     }
@@ -75,27 +81,32 @@ export abstract class Player {
     public putShip(ship: Ship): void {
         
         let validPlacementFound = false;
-        let start: Coordinate, direction: Direction;
+        let startPlacement: Coordinate, directionPlacement: Direction;
         
         while(!validPlacementFound) {
             const {start, direction} = this.getNextPlacement(ship);
 
             validPlacementFound = this.isValidPlacement(start, direction, ship.length)
+            if(validPlacementFound) {
+                startPlacement = start;
+                directionPlacement = direction;
+            }
         }
 
+
         for (let i = 0; i < ship.length; i++) {
-            switch (direction) {
+            switch (directionPlacement) {
                 case Direction.UP:
-                    this.playerGrid.setCellContents({x: start.x, y: start.y - i}, ship);
+                    this.playerGrid.setCellContents({x: startPlacement.x, y: startPlacement.y - i}, ship);
                     break;
                 case Direction.DOWN:
-                    this.playerGrid.setCellContents({x: start.x, y: start.y + i}, ship);
+                    this.playerGrid.setCellContents({x: startPlacement.x, y: startPlacement.y + i}, ship);
                     break;
                 case Direction.LEFT:
-                    this.playerGrid.setCellContents({x: start.x - i, y: start.y}, ship);
+                    this.playerGrid.setCellContents({x: startPlacement.x - i, y: startPlacement.y}, ship);
                     break;
                 case Direction.RIGHT:
-                    this.playerGrid.setCellContents({x: start.x + i, y: start.y}, ship);
+                    this.playerGrid.setCellContents({x: startPlacement.x + i, y: startPlacement.y}, ship);
                     break;
             }
         }

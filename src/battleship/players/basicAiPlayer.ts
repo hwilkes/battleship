@@ -1,6 +1,6 @@
 import {Direction, Player} from "./player";
 import {Coordinate, gridSize} from "../grid";
-import {Ship, ShipType} from "../ships";
+import {Ship} from "../ships";
 
 export default class BasicAiPlayer extends Player {
 
@@ -64,14 +64,22 @@ export default class BasicAiPlayer extends Player {
     }
 
     private getRandomInt(min: number, max: number) {
-        return Math.random() * (max - min) + min;
+        return Math.floor(Math.random() * (max - min) + min);
     }
 
     private getRandomDirection(): Direction {
-        const index= Math.floor(Math.random() * Object.keys(Direction).length);
-        const value= Object.values(Direction)[index];
-
-        let directionElement = Direction[value];
-        return directionElement;
+        const rand = this.getRandomInt(0,4);
+        if(rand == 0) {
+            return Direction.UP;
+        }
+        else if(rand == 1) {
+            return Direction.DOWN;
+        }
+        else if(rand == 2) {
+            return Direction.LEFT;
+        }
+        else{
+            return Direction.RIGHT;
+        }
     }
 }

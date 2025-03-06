@@ -15,14 +15,20 @@ export default class Game {
     }
 
     setup(): void {
+        console.log("setup");
         for (const ship of Ships) {
             this.playerOne.putShip(ship)
             this.playerTwo.putShip(ship)
         }
+
+        console.log(JSON.stringify((this.playerOne.playerGrid.occupiedCells)))
+
+        while(true){}
+        console.log("Ships placed!")
     }
 
     run(): void {
-
+        console.log("run");
         this.gameRunning = true;
 
         let playerOneLastHit = false, playerTwoHit = false;
@@ -32,6 +38,9 @@ export default class Game {
         while(this.gameRunning) {
             playerOneTarget = this.playerOne.chooseTarget(playerOneLastHit)
             playerOneLastHit = this.playerTwo.blowupCell(playerOneTarget);
+
+            console.log(`Player One Target: ${playerOneTarget.x} ${playerOneTarget.y}`)
+            console.log("Player One Hit?: " + playerOneLastHit)
             
             if(this.playerTwo.isDead()) {
                 console.log("Player One Wins");
@@ -41,6 +50,9 @@ export default class Game {
 
             playerTwoTarget = this.playerTwo.chooseTarget(playerTwoHit)
             playerTwoHit = this.playerOne.blowupCell(playerTwoTarget);
+
+            console.log(`Player Two Target: ${playerTwoTarget.x} ${playerTwoTarget.y}`)
+            console.log("Player Two Hit?: " + playerTwoHit)
 
             if(this.playerOne.isDead()) {
                 console.log("Player Two Wins");
